@@ -1,27 +1,31 @@
+import { ButtonGroup, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const FilterButtons = ({ activeFilter, handleFilterClick }) => {
   return (
-    <div className="filter-buttons">
-      <button
+    <ButtonGroup className="my-3">
+      <Button
+        variant={activeFilter === "ALL" ? "primary" : "secondary"}
         onClick={() => handleFilterClick("ALL")}
-        className={activeFilter === "ALL" ? "active" : ""}
+        size="md"
       >
         All
-      </button>
-      <button
+      </Button>
+      <Button
+        variant={activeFilter === "ACTIVE" ? "primary" : "secondary"}
         onClick={() => handleFilterClick("ACTIVE")}
-        className={activeFilter === "ACTIVE" ? "active" : ""}
+        size="md"
       >
         Active
-      </button>
-      <button
+      </Button>
+      <Button
+        variant={activeFilter === "COMPLETED" ? "primary" : "secondary"}
         onClick={() => handleFilterClick("COMPLETED")}
-        className={activeFilter === "COMPLETED" ? "active" : ""}
+        size="md"
       >
         Completed
-      </button>
-    </div>
+      </Button>
+    </ButtonGroup>
   );
 };
 

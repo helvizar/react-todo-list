@@ -9,7 +9,8 @@ import {
   toggleComplete,
   deleteAll,
 } from "../redux/reducers/operations";
-import FilterButtons from "./Filter-Button";
+import FilterButtons from "./FilterButtons";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 const Todos = () => {
   const dispatch = useDispatch();
@@ -32,72 +33,110 @@ const Todos = () => {
     setActiveFilter(filterType);
   };
 
-  return (
-    <div>
-      <FilterButtons activeFilter={activeFilter} handleFilterClick={handleFilterClick} />
+  const handleDeleteAll = () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete all todos?");
+    if (confirmDelete) {
+      dispatch(deleteAll());
+    }
+  };
 
-      {todos
-        .filter((todo) => {
-          if (activeFilter === "ACTIVE") {
-            return !todo.completed;
-          } else if (activeFilter === "COMPLETED") {
-            return todo.completed;
-          }
-          return true;
-        })
-        .map((todo) => (
-          <div key={todo.id} className="todo-box">
-            <div className="content">
-              {editMode === todo.id ? (
-                <>
-                  <input
-                    type="text"
-                    value={editedTodo}
-                    onChange={(e) => setEditedTodo(e.target.value)}
-                  />
-                  <button onClick={() => handleSaveEdit(todo.id)}>Save</button>
-                </>
-              ) : (
-                <>
-                  <input
-                    type="checkbox"
-                    checked={todo.completed}
-                    onChange={() => dispatch(toggleComplete(todo.id))}
-                  />
-                  <p
-                    style={
-                      todo.completed === true
-                        ? { textDecoration: "line-through" }
-                        : { textDecoration: "none" }
-                    }
-                  >
-                    {todo.todo}
-                  </p>
-                </>
-              )}
-            </div>
-            <div className="actions-box">
-              <span>
-                <Icon icon={edit2} onClick={() => handleEditClick(todo)} />
-              </span>
-              <span>
-                <Icon
-                  icon={trash}
-                  onClick={() => dispatch(removeTodo(todo.id))}
-                />
-              </span>
-            </div>
-          </div>
-        ))}
-      {todos.length > 0 && (
-        <button
-          className="btn btn-danger btn-md delete-all"
-          onClick={() => dispatch(deleteAll())}
-        >
-          DELETE ALL
-        </button>
-      )}
-    </div>
+  return (
+    <Container>
+      <Row>
+        <Col className="text-center">
+          <FilterButtons
+            activeFilter={activeFilter}
+            handleFilterClick={handleFilterClick}
+          />
+
+          {todos
+            .filter((todo) => {
+              if (activeFilter === "ACTIVE") {
+                return !todo.completed;
+              } else if (activeFilter === "COMPLETED") {
+                return todo.completed;
+              }
+              return true;
+            })
+            .map((todo) => (
+              <div
+                key={todo.id}
+                className={`todo-box d-flex align-items-center mb-2 border p-2 ${
+                  editMode === todo.id ? "edit-mode" : ""
+                }`}
+              >
+                <div className="content flex-grow-1 p-2">
+                  {editMode === todo.id ? (
+                    <>
+                      <Form.Control
+                        className="p-2"
+                        type="text"
+                        value={editedTodo}
+                        onChange={(e) => setEditedTodo(e.target.value)}
+                      />
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => handleSaveEdit(todo.id)}
+                        className="mt-2"
+                      >
+                        Save
+                      </Button>
+                    </>
+                  ) : (
+                    <div className="d-flex align-items-center">
+                      <Form.Check
+                        className="me-3"
+                        type="checkbox"
+                        checked={todo.completed}
+                        onChange={() => dispatch(toggleComplete(todo.id))}
+                      />
+                      <p
+                        style={{
+                          textDecoration: todo.completed ? "line-through" : "none",
+                          margin: 0,
+                        }}
+                        className="ml-3"
+                      >
+                        {todo.todo}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                {editMode !== todo.id && (
+                  <div className="actions-box p-2">
+                    <span className="mx-3">
+                      <Icon
+                        icon={edit2}
+                        onClick={() => handleEditClick(todo)}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </span>
+                    <span>
+                      <Icon
+                        icon={trash}
+                        onClick={() => dispatch(removeTodo(todo.id))}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </span>
+                  </div>
+                )}
+              </div>
+            ))}
+
+          {todos.length > 0 && (
+            <Button
+              variant="danger"
+              size="sm"
+              className="mt-2 px-4 p-2"
+              onClick={handleDeleteAll}
+            >
+              DELETE ALL
+            </Button>
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
