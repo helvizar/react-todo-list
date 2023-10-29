@@ -9,14 +9,14 @@ import {
   toggleComplete,
   deleteAll,
 } from "../redux/reducers/operations";
+import FilterButtons from "./Filter-Button";
 
 const Todos = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
-
   const [editMode, setEditMode] = useState(null);
   const [editedTodo, setEditedTodo] = useState("");
-  const [activeFilter, setActiveFilter] = useState("ALL"); // Tambahkan state untuk filter aktif
+  const [activeFilter, setActiveFilter] = useState("ALL");
 
   const handleEditClick = (todo) => {
     setEditMode(todo.id);
@@ -28,13 +28,13 @@ const Todos = () => {
     setEditMode(null);
   };
 
+  const handleFilterClick = (filterType) => {
+    setActiveFilter(filterType);
+  };
+
   return (
     <div>
-      <div className="filter-buttons">
-        <button onClick={() => setActiveFilter("ALL")}>All</button>
-        <button onClick={() => setActiveFilter("ACTIVE")}>Active</button>
-        <button onClick={() => setActiveFilter("COMPLETED")}>Completed</button>
-      </div>
+      <FilterButtons activeFilter={activeFilter} handleFilterClick={handleFilterClick} />
 
       {todos
         .filter((todo) => {

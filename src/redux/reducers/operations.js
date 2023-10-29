@@ -7,10 +7,12 @@ const todoSlice = createSlice({
     { id: 2, todo: 'Main Catur ', completed: false },
     { id: 3, todo: 'Liburan Musim Panas', completed: false },
   ],
+
   reducers: {
     addTodo: (state, action) => {
       state.push(action.payload);
     },
+
     editTodo: (state, action) => {
       const { id, updatedTodo } = action.payload;
       const todoToEdit = state.find((todo) => todo.id === id);
@@ -18,6 +20,7 @@ const todoSlice = createSlice({
         todoToEdit.todo = updatedTodo;
       }
     },
+
     toggleComplete: (state, action) => {
       const id = action.payload;
       const todoToToggle = state.find((todo) => todo.id === id);
@@ -25,14 +28,17 @@ const todoSlice = createSlice({
         todoToToggle.completed = !todoToToggle.completed;
       }
     },
+
     removeTodo: (state, action) => {
       const idToRemove = action.payload;
       return state.filter((todo) => todo.id !== idToRemove);
     },
+
     deleteAll: (state) => {
       state.length = 0;
     },
-    // Tambahkan reducer untuk filter tugas
+
+    // add reducer for filter to do list
     filterTodos: (state, action) => {
       const filterType = action.payload;
       switch (filterType) {

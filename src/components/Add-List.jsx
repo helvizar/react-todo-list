@@ -9,7 +9,7 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (todoValue.trim() !== '') { // Memastikan bahwa tugas yang akan ditambahkan tidak kosong
+    if (todoValue.trim() !== '') { // validate to do list add
       const date = new Date();
       const time = date.getTime();
       const todoObj = {
@@ -17,6 +17,7 @@ const Form = () => {
         todo: todoValue,
         completed: false,
       };
+      console.log(todoObj);
       setTodoValue('');
       dispatch(addTodo(todoObj));
     }
