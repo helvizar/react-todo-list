@@ -1,12 +1,12 @@
 import { Form } from './components/Add-List';
 import { Todos } from './components/Todo-Items';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteAll } from './redux/reducers/operations'; // Mengimpor deleteAll dari operasi Redux
+import { deleteAll } from './redux/reducers/operations';
 
 function App() {
   const dispatch = useDispatch();
 
-  const todos = useSelector((state) => state.todos); // Menggunakan state.todos karena itulah nama slice yang digunakan di store.js
+  const todos = useSelector((state) => state.todos);
 
   return (
     <div className="wrapper">

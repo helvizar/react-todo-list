@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../redux/reducers/operations'; // Mengimpor addTodo dari operasi Redux yang sesuai
+import { addTodo } from '../redux/reducers/operations';
 
 const Form = () => {
   const dispatch = useDispatch();
