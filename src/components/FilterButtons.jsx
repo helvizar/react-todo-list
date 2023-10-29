@@ -1,5 +1,5 @@
-import { ButtonGroup, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { ButtonGroup, Button } from "react-bootstrap";
 
 const FilterButtons = ({ activeFilter, handleFilterClick }) => {
   return (

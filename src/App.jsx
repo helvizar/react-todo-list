@@ -1,5 +1,5 @@
 import { AddList } from "./components/AddList";
-import { Todos } from "./components/Todo-Items";
+import { Todos } from "./components/TodoItems";
 
 function App() {
   return (

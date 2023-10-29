@@ -1,8 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../redux/reducers/operations';
 import { Container, Row, Col, Form, Button, Alert, InputGroup } from 'react-bootstrap';
+
+import { addTodo } from '../redux/reducers/operations';
 
 const AddList = () => {
   const dispatch = useDispatch();

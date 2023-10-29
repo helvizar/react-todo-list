@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Icon } from "react-icons-kit";
 import { trash } from "react-icons-kit/feather/trash";
 import { edit2 } from "react-icons-kit/feather/edit2";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+
 import {
   editTodo,
   removeTodo,
@@ -10,7 +12,6 @@ import {
   deleteAll,
 } from "../redux/reducers/operations";
 import FilterButtons from "./FilterButtons";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 const Todos = () => {
   const dispatch = useDispatch();
