@@ -32,8 +32,28 @@ const todoSlice = createSlice({
     deleteAll: (state) => {
       state.length = 0;
     },
+    // Tambahkan reducer untuk filter tugas
+    filterTodos: (state, action) => {
+      const filterType = action.payload;
+      switch (filterType) {
+        case 'ACTIVE':
+          return state.filter((todo) => !todo.completed);
+        case 'COMPLETED':
+          return state.filter((todo) => todo.completed);
+        default:
+          return state;
+      }
+    },
   },
 });
 
-export const { addTodo, editTodo, toggleComplete, removeTodo, deleteAll } = todoSlice.actions;
+export const {
+  addTodo,
+  editTodo,
+  toggleComplete,
+  removeTodo,
+  deleteAll,
+  filterTodos,
+} = todoSlice.actions;
+
 export default todoSlice.reducer;
